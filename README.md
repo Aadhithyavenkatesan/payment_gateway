@@ -1,3 +1,3 @@
 # payment_gateway
 
-A new Flutter project.
+A Concept payment gateway app powered by razorpay
