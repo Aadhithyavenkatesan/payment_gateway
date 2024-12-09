@@ -16,10 +16,10 @@ class _RazorPayPageState extends State<RazorPayPage> {
   void openCheckout(amount)async{
     amount = amount * 100;
     var options = {
-      'key' : 'rzp_test_1DP5mm0lF5G5ag',
+      'key' : 'rzp_test_T58VEeN8QEFog2',//Testing api
       'amount' : amount,
-      'name' : 'Geeks for Geeks',
-      'prefill' : {'contact' : '1234567890', 'email' : 'test@gmail.com'},
+      'name' : "Donation for Future's",
+      'prefill' : {'contact' : '9943372040', 'email' : 'test@gmail.com'},
       'external' : {
         'wallets' : ['paytm']
       }
@@ -61,6 +61,88 @@ class _RazorPayPageState extends State<RazorPayPage> {
   
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+     // backgroundColor: Colors.grey[800],
+      body: Container(
+        height: h,
+        width: w,
+          padding: EdgeInsets.only(top: 65, left: 15, right: 15),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+             // colorFilter: ColorFilter.mode(const Color.fromARGB(255, 0, 0, 0), BlendMode.color),
+                image: AssetImage("assets/bg_2.jpg"),
+                fit: BoxFit.cover),),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 100,),
+              Text("Welcome to Razorpay Payment Gateway Integration",
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+              textAlign: TextAlign.center,),
+              SizedBox(height: 200,),
+              Padding(padding: EdgeInsets.all(8.0),
+              child: Container(
+                color: Colors.black45,
+                child: TextFormField(
+                  cursorColor: const Color.fromARGB(255, 255, 255, 255),
+                  autofocus: true,
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 255, 255, 255),),
+                    decoration: InputDecoration(
+                      labelText: 'Enter Amount to be paid',
+                      labelStyle: TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.white,
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                          width: 1.0,
+                        )
+                      ),
+                      errorStyle:   TextStyle(color: Colors.redAccent, fontSize: 15),
+                      
+                        
+                    ),
+                    controller: amtController,
+                    validator: (value){
+                      if (value == null || value.isEmpty) {
+                        return 'Please Enter Amount to be paid';
+                      }
+                      return null;
+                    },
+                  ),
+              ),
+        
+              ),
+        
+              SizedBox(height: 130,),
+              ElevatedButton(onPressed: (){
+                if (amtController.text.toString().isNotEmpty) {
+                  setState(() {
+                    int amount = int.parse(amtController.text.toString());
+                    openCheckout(amount);
+                  });
+                }
+              }, child: Padding(padding: EdgeInsets.all(8.0),
+              child: Text('Make a Payment',style: TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.white,
+                      ),),),
+              
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),)
+            ],
+          ),
+        ),
+      ),
+    );
+    
   }
 }
